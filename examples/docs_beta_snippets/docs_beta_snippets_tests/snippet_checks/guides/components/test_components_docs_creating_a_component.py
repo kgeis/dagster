@@ -53,7 +53,7 @@ def test_components_docs_index(update_snippets: bool, get_selenium_driver) -> No
 
         # Scaffold code location
         _run_command(
-            cmd="dg code-location scaffold my-component-library --use-editable-dagster && cd my-component-library",
+            cmd="dg scaffold code-location my-component-library --use-editable-dagster && cd my-component-library",
         )
 
         #########################################################
@@ -62,7 +62,7 @@ def test_components_docs_index(update_snippets: bool, get_selenium_driver) -> No
 
         # Scaffold new component type
         run_command_and_snippet_output(
-            cmd="dg component-type scaffold shell_command",
+            cmd="dg scaffold component-type shell_command",
             snippet_path=COMPONENTS_SNIPPETS_DIR
             / f"{next_snip_no()}-dg-scaffold-shell-command.txt",
             update_snippets=update_snippets,
@@ -82,7 +82,7 @@ def test_components_docs_index(update_snippets: bool, get_selenium_driver) -> No
             contents=(COMPONENTS_SNIPPETS_DIR / "with-config-schema.py").read_text(),
         )
         # Sanity check that the component type is registered properly
-        _run_command("dg component-type list")
+        _run_command("dg list component-type")
 
         # Add build defs
         create_file(
@@ -95,7 +95,7 @@ def test_components_docs_index(update_snippets: bool, get_selenium_driver) -> No
         #########################################################
 
         run_command_and_snippet_output(
-            cmd="dg component-type list",
+            cmd="dg list component-type",
             snippet_path=COMPONENTS_SNIPPETS_DIR
             / f"{next_snip_no()}-dg-list-component-types.txt",
             update_snippets=update_snippets,
@@ -103,7 +103,7 @@ def test_components_docs_index(update_snippets: bool, get_selenium_driver) -> No
         )
 
         run_command_and_snippet_output(
-            cmd="dg component-type docs shell_command@my_component_library --output cli > docs.html",
+            cmd="dg docs component-type shell_command@my_component_library --output cli > docs.html",
             snippet_path=COMPONENTS_SNIPPETS_DIR
             / f"{next_snip_no()}-dg-component-type-docs.txt",
             update_snippets=update_snippets,
@@ -145,7 +145,7 @@ def test_components_docs_index(update_snippets: bool, get_selenium_driver) -> No
             contents=(COMPONENTS_SNIPPETS_DIR / "with-scaffolder.py").read_text(),
         )
         run_command_and_snippet_output(
-            cmd="dg component scaffold 'shell_command@my_component_library' my_shell_command",
+            cmd="dg scaffold component 'shell_command@my_component_library' my_shell_command",
             snippet_path=COMPONENTS_SNIPPETS_DIR
             / f"{next_snip_no()}-scaffold-instance-of-component.txt",
             update_snippets=update_snippets,
